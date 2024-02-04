@@ -1,0 +1,13 @@
+function:
+  name: omni-live-logistics-copy-s3-data-${self:provider.stage}
+  handler: src/copy_data_s3.lambda_handler
+  description: omni live logistics copy s3 data
+  package:
+    patterns:
+      - "!**/*"
+      - "src/shared/**"
+      - "src/copy_data_s3.py"
+  runtime: python3.9
+  layers:
+      - arn:aws:lambda:us-east-1:332281781429:layer:pytz:1
+

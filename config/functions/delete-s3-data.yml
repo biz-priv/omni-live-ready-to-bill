@@ -1,0 +1,11 @@
+function:
+  name: omni-live-logistics-delete-s3-data-${self:provider.stage}
+  handler: src/delete_s3_data.lambda_handler
+  description: omni live logistics delete s3 data
+  package:
+    patterns:
+      - "!**/*"
+      - "src/shared/**"
+      - "src/delete_s3_data.py"
+  runtime: python3.9
+
