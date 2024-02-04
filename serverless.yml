@@ -27,11 +27,20 @@ provider:
       Resource: "*"
     - Effect: "Allow"
       Action:
-        - ssm:GetParameter
+        - ssm:*
       Resource: "*"
     - Effect: "Allow"
       Action:
-        - s3:"*"
+        - s3:*
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - athena:*
+      Resource: "*"
+    - Effect: "Allow"
+      Action: 
+        - glue:*
+      Resource: "*"
 
 package:
   individually: true
@@ -44,7 +53,7 @@ functions:
 
 stepFunctions:
   stateMachines:
-    ready-to-bill: ${file(config/config/step-function/ready-to-bill-statemachine.yml):stateMachine}
+    ready-to-bill: ${file(config/step-function/ready-to-bill-statemachine.yml):stateMachine}
 
 resources:
   Resources:

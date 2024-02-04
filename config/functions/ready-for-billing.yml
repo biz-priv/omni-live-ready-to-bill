@@ -2,6 +2,7 @@ function:
   name: omni-live-logistics-ready-for-billing-${self:provider.stage}
   handler: src/readytobill_update.lambda_handler
   description: omni live logistics readytobill_update
+  timeout: 900
   package:
     patterns:
       - "!**/*"
