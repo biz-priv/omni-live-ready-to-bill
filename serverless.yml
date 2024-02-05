@@ -1,0 +1,124 @@
+service: omni-live-logistics-ready-for-billing
+
+plugins:
+  - serverless-python-requirements
+  - serverless-step-functions
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - ses:SendEmail
+        - ses:SendRawEmail
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - ssm:*
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - s3:*
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - athena:*
+      Resource: "*"
+    - Effect: "Allow"
+      Action: 
+        - glue:*
+      Resource: "*"
+
+package:
+  individually: true
+
+functions:
+  readytobillupdate: ${file(config/functions/ready-for-billing.yml):function}
+  copys3data: ${file(config/functions/copy-s3-data.yml):function}
+  deletes3data: ${file(config/functions/delete-s3-data.yml):function}
+  queryAthena: ${file(config/functions/query-athena.yml):function}
+
+stepFunctions:
+  stateMachines:
+    ready-to-bill: ${file(config/step-function/ready-to-bill-statemachine.yml):stateMachine}
+
+resources:
+  Resources:
+
+    MySSMParameter:
+      Type: "AWS::SSM::Parameter"
+      Properties:
+        Name: '/readytobill/bucket/key/parameter/${self:provider.stage}'
+        Type: "String"
+        Value: "default_value"
+
+    ReadyforBilling: ${file(config/dynamo/ready-for-billing-table.yml):ready-for-billing}
+
+    stateMachineRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: ready-to-bill-stepfuction-role-${self:provider.stage}
+        AssumeRolePolicyDocument:
+          Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - states.amazonaws.com
+            Action:
+              - sts:AssumeRole
+        Policies:
+          - PolicyName: statePolicy
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - lambda:InvokeFunction
+                  Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - s3:*
+                    - s3-object-lambda:*
+                  Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - states:RedriveExecution
+                    - states:StartExecution
+                    - states:DescribeExecution
+                    - states:StopExecution
+                  Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - events:PutTargets
+                    - events:PutRule
+                    - events:DescribeRule
+                  Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - xray:PutTraceSegments
+                    - xray:PutTelemetryRecords
+                    - xray:GetSamplingRules
+                    - xray:GetSamplingTargets
+                  Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource: "*"
+# custom:
+#   pythonRequirements:
+#     dockerizePip: true

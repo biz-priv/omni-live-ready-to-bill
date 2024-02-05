@@ -1,0 +1,116 @@
+stateMachine:
+  name: omni-live-logistics-state-machine-${self:provider.stage}
+  role: !GetAtt stateMachineRole.Arn
+  definition:
+    Comment: "State machine for ready-to-bill"
+    StartAt: fetchLatestRecordsToS3
+    States:
+      fetchLatestRecordsToS3:
+        Type: Task
+        Resource: !GetAtt copys3data.Arn
+        Parameters:
+          Payload.$: $
+        Retry:
+          - ErrorEquals:
+              - Lambda.ServiceException
+              - Lambda.AWSLambdaException
+              - Lambda.SdkClientException
+              - Lambda.TooManyRequestsException
+            IntervalSeconds: 1
+            MaxAttempts: 3
+            BackoffRate: 2
+        Next: queryAthena
+      queryAthena:
+        Type: Task
+        Resource: !GetAtt queryAthena.Arn
+        Parameters:
+          Payload.$: $
+        Retry:
+          - ErrorEquals:
+              - Lambda.ServiceException
+              - Lambda.AWSLambdaException
+              - Lambda.SdkClientException
+              - Lambda.TooManyRequestsException
+            IntervalSeconds: 1
+            MaxAttempts: 3
+            BackoffRate: 2
+        ResultPath: $.queryAthena
+        Next: csvRecordsMap
+      csvRecordsMap:
+        Type: Map
+        ToleratedFailurePercentage: 100
+        ItemProcessor:
+          ProcessorConfig:
+            Mode: DISTRIBUTED
+            ExecutionType: EXPRESS
+          StartAt: processCsvRecord
+          States:
+            processCsvRecord:
+              Type: Task
+              Resource: !GetAtt readytobillupdate.Arn
+              Parameters:
+                Payload.$: $.Items
+              Retry:
+                - ErrorEquals:
+                    - Lambda.ServiceException
+                    - Lambda.AWSLambdaException
+                    - Lambda.SdkClientException
+                    - Lambda.TooManyRequestsException
+                  IntervalSeconds: 1
+                  MaxAttempts: 3
+                  BackoffRate: 2
+              End: true
+              ResultPath: $.processCsvRecordResult
+        ItemSelector:
+          item.$: $$.Map.Item.Value
+          mapInput.$: $
+        ItemReader:
+          Resource: arn:aws:states:::s3:getObject
+          ReaderConfig:
+            InputType: CSV
+            CSVHeaderLocation: FIRST_ROW
+          Parameters:
+            Bucket.$: $.queryAthena.Bucket
+            Key.$: $.queryAthena.Key
+        ItemBatcher: 
+          MaxItemsPerBatch:  10
+        MaxConcurrency: 2
+        Label: FileAnalysis
+        ResultPath: null
+        Next: deletefiles
+      deletefiles:
+        Type: Task
+        Resource: !GetAtt deletes3data.Arn
+        Parameters:
+          Payload.$: $
+        Retry:
+          - ErrorEquals:
+              - Lambda.ServiceException
+              - Lambda.AWSLambdaException
+              - Lambda.SdkClientException
+              - Lambda.TooManyRequestsException
+            IntervalSeconds: 1
+            MaxAttempts: 3
+            BackoffRate: 2
+        End: true
+      #   Next: processFailedRecords
+      # processFailedRecords:
+      #   Type: Task
+      #   Resource: !GetAtt processFailedRecords.Arn
+      #   Parameters:
+      #     Payload.$: $
+      #   Retry:
+      #     - ErrorEquals:
+      #         - Lambda.ServiceException
+      #         - Lambda.AWSLambdaException
+      #         - Lambda.SdkClientException
+      #         - Lambda.TooManyRequestsException
+      #       IntervalSeconds: 1
+      #       MaxAttempts: 3
+      #       BackoffRate: 2
+      #   End: true
+      
+  events:
+    - schedule:
+        rate: cron(0 */2 * * ? *)
+        enabled: false 
