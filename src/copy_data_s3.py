@@ -7,7 +7,7 @@ def lambda_handler(event, context):
 
     # Specify the source and destination bucket names
     source_bucket = 'dms-dw-etl-lvlp'
-    destination_bucket = 'dw-test-etl-job'
+    destination_bucket = 'dms-dw-etl-lvlp'
 
     # List of folder names you want to process
     folders_to_process = ['movement','movement_order','orders','stop']
