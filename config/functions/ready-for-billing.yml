@@ -1,0 +1,18 @@
+function:
+  name: omni-live-logistics-ready-for-billing-${self:provider.stage}
+  handler: src/readytobill_update.lambda_handler
+  description: omni live logistics readytobill_update
+  timeout: 900
+  package:
+    patterns:
+      - "!**/*"
+      - "src/shared/**"
+      - "src/readytobill_update.py"
+      - "src/query_file.sql"
+  runtime: python3.9
+  layers:
+      - arn:aws:lambda:us-east-1:332281781429:layer:requests:1
+      - arn:aws:lambda:us-east-1:332281781429:layer:urllib:1
+  environment:
+      Dynamo_Table: !Ref ReadyforBilling
+
