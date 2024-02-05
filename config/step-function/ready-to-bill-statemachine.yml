@@ -111,4 +111,4 @@ stateMachine:
       #   End: true
 
   # events:
-  #   - schedule: cron(0 12,2 * * ? *)
+  #   - schedule: cron(0 */2 * * ? *)
