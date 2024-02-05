@@ -60,7 +60,7 @@ def update_order(id,shipper_stop_id,consignee_stop_id):
             ]
         }
     print("json",json_data)
-    url = f'https://tms-lvlp.loadtracking.com:6790/ws/api/orders/update'
+    url = f'https://tms-lvlp.loadtracking.com/ws/api/orders/update'
     response = requests.put(url, auth=(username, password), headers=mcleod_headers,json=json_data)
     print("response",response.text)
     output = response.json()
