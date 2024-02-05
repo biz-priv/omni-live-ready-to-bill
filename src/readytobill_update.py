@@ -6,22 +6,7 @@ import os
 import requests
 
 def lambda_handler(event, context):
-    print("event:",event)
-    
-    # s3 = boto3.client('s3')
-
-    # s3_bucket = s3_file_path.split('/', 3)[-2]
-    # s3_key = s3_file_path.split('/', 3)[-1]
-    # response = s3.get_object(Bucket=s3_bucket, Key=s3_key)
-    # csv_content = response['Body'].read().decode('utf-8')
-    # reader = csv.reader(csv_content.splitlines())
-    # rows = [row for row in reader]
-    # if len(rows) > 1:
-    #     data_rows = rows[1:]  # Exclude header row
-    #     print("Data:", data_rows)
-    # else:
-    #     print("No data found in the CSV.")
-    
+    print("event:",event)    
     ready_to_bill = True
     for item in event["Payload"]:
         order_id=item['item']["order_id"]
@@ -29,7 +14,6 @@ def lambda_handler(event, context):
         consignee_stop_id=item['item']["consignee_stop_id"]
         response=update_order(order_id,shipper_stop_id,consignee_stop_id)
         # Update status based on response
-        return
         if response == 200:
             status = 'Accepted'
         elif response in [400, 401,405]:
@@ -76,7 +60,6 @@ def update_order(id,shipper_stop_id,consignee_stop_id):
             ]
         }
     print("json",json_data)
-    return
     url = f'https://tms-lvlp.loadtracking.com:6790/ws/api/orders/update'
     response = requests.put(url, auth=(username, password), headers=mcleod_headers,json=json_data)
     print("response",response.text)
