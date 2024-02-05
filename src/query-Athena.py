@@ -48,7 +48,4 @@ def lambda_handler(event, context):
             print("S3 Key sent to SSM parameter:", parameter_name)
             break  # Exit the loop after sending the parameter
             
-    return {
-        'statusCode': 200,
-        'body': json.dumps('S3 Key sent to SSM parameter successfully')
-    }
+    return {"Bucket": s3_bucket,"Key":s3_key}

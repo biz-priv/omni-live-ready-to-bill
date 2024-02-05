@@ -33,6 +33,8 @@ group by
 
 select o.id as order_id,
     s1.actual_departure,
+    s1.id as shipper_stop_id,
+    s2.id as consignee_stop_id,
     o.status,
     mo.num_of_moves,
     m.brokerage_status,
@@ -53,12 +55,3 @@ where o.status = 'D'
     and mo.num_of_moves = 1
     and m.brokerage_status = 'DELIVERD'
     and date_diff('hour', s1.actual_departure, CURRENT_DATE) >= 96 limit 10;
-
-
-
-
-
-
-
-
-
