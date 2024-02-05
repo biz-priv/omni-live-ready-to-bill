@@ -110,5 +110,5 @@ stateMachine:
       #       BackoffRate: 2
       #   End: true
 
-  events:
-    - schedule: cron(0 */2 * * ? *)
+  # events:
+  #   - schedule: cron(0 */2 * * ? *)
