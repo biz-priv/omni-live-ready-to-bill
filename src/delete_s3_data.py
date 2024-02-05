@@ -2,7 +2,6 @@ import boto3
 
 def lambda_handler(event, context):
     print("event:",event)
-    return
     # Initialize the S3 client
     s3 = boto3.client('s3')
 
