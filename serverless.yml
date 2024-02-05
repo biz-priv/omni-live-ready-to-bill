@@ -119,7 +119,6 @@ resources:
                     - logs:CreateLogStream
                     - logs:PutLogEvents
                   Resource: "*"
-
-custom:
-  pythonRequirements:
-    dockerizePip: true
+# custom:
+#   pythonRequirements:
+#     dockerizePip: true
