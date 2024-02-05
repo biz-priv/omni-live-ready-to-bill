@@ -4,10 +4,8 @@ def lambda_handler(event, context):
     print("event:",event)
     # Initialize the S3 client
     s3 = boto3.client('s3')
-
     # Specify the source bucket name
     source_bucket = 'dms-dw-etl-lvlp'
-
     # List of folder names you want to process
     folders_to_process = ['orders', 'movement', 'movement_order', 'stop']
 
