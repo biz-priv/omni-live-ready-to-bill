@@ -15,4 +15,4 @@ function:
       - arn:aws:lambda:us-east-1:332281781429:layer:urllib:1
   environment:
       Dynamo_Table: !Ref ReadyforBilling
-
+      url: ${ssm:/readytobill/endpoint/${self:provider.stage}}
