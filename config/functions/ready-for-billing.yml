@@ -12,6 +12,7 @@ function:
   runtime: python3.9
   layers:
       - arn:aws:lambda:us-east-1:332281781429:layer:requests:1
+      - arn:aws:lambda:us-east-1:332281781429:layer:urllib:1
   environment:
       Dynamo_Table: !Ref ReadyforBilling
 
