@@ -15,7 +15,7 @@ def lambda_handler(event, context):
         # Iterate through the folders
         for folder_name in folders_to_process:
             # Construct the full object key for the folder
-            prefix = f"prod/dbo/{folder_name}/"
+            prefix = f"lvlp/prod/dbo/{folder_name}/"
 
             # List objects in the source bucket with the specified prefix
             response = s3.list_objects_v2(Bucket=source_bucket, Prefix=prefix)
