@@ -43,8 +43,25 @@ stateMachine:
           ProcessorConfig:
             Mode: DISTRIBUTED
             ExecutionType: EXPRESS
-          StartAt: processCsvRecord
+          StartAt: CheckIfRecordsExist
           States:
+            CheckIfRecordsExist:
+              Type: Choice
+              Choices:
+                - Variable: "$.Items"
+                  IsPresent: true
+                  Next: processCsvRecord
+                - Variable: "$.item"
+                  IsPresent: true 
+                  Next: processCsvRecord
+                - Variable: "$.item"
+                  IsPresent: false
+                  Next: NoRecordsFound
+              Default: NoRecordsFound
+            NoRecordsFound:
+              Type: Pass
+              Result: "No records found in CSV"
+              End: true
             processCsvRecord:
               Type: Task
               Resource: !GetAtt readytobillupdate.Arn
@@ -77,39 +94,15 @@ stateMachine:
         MaxConcurrency: 2
         Label: FileAnalysis
         ResultPath: null
-        Next: deletefiles
-      deletefiles:
-        Type: Task
-        Resource: !GetAtt deletes3data.Arn
-        Parameters:
-          Payload.$: $
-        Retry:
-          - ErrorEquals:
-              - Lambda.ServiceException
-              - Lambda.AWSLambdaException
-              - Lambda.SdkClientException
-              - Lambda.TooManyRequestsException
-            IntervalSeconds: 1
-            MaxAttempts: 3
-            BackoffRate: 2
         End: true
-      #   Next: processFailedRecords
-      # processFailedRecords:
-      #   Type: Task
-      #   Resource: !GetAtt processFailedRecords.Arn
-      #   Parameters:
-      #     Payload.$: $
-      #   Retry:
-      #     - ErrorEquals:
-      #         - Lambda.ServiceException
-      #         - Lambda.AWSLambdaException
-      #         - Lambda.SdkClientException
-      #         - Lambda.TooManyRequestsException
-      #       IntervalSeconds: 1
-      #       MaxAttempts: 3
-      #       BackoffRate: 2
-      #   End: true
-      
+        Catch:
+          - ErrorEquals: ["States.ItemReaderFailed"]
+            Next: HandleItemReaderFailed
+      HandleItemReaderFailed:
+        Type: Pass
+        Result: "No data records found in CSV"
+        End: true
+              
   events:
     - schedule:
         rate: cron(0 */2 * * ? *)
