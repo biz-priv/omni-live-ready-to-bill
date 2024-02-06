@@ -1,20 +1,26 @@
 import boto3
+from datetime import datetime, timedelta, timezone
 
 def lambda_handler(event, context):
-    print("event:",event)
+    print("event:", event)
     # Initialize the S3 client
     s3 = boto3.client('s3')
+
     # Specify the source bucket name
     source_bucket = 'dms-dw-etl-lvlp'
+
     # List of folder names you want to process
     folders_to_process = ['orders', 'movement', 'movement_order', 'stop']
 
     try:
+        # Calculate the timestamp 200 hours ago
+        threshold_time = datetime.now(timezone.utc) - timedelta(hours=200)
+
         # Iterate through the folders
         for folder_name in folders_to_process:
             # Construct the full object key for the folder
             prefix = f"lvlp/prod/dbo/{folder_name}/"
-            print("prefix",prefix)
+            print("prefix", prefix)
 
             # Initialize the continuation token
             continuation_token = None
@@ -30,8 +36,12 @@ def lambda_handler(event, context):
                 # Delete objects within the folder
                 for obj in response.get('Contents', []):
                     obj_key = obj['Key']
-                    # Delete the object from the source bucket
-                    s3.delete_object(Bucket=source_bucket, Key=obj_key)
+                    last_modified = obj['LastModified']
+
+                    # Check if the object's last modified time is more than 200 hours ago
+                    if last_modified < threshold_time:
+                        # Delete the object from the source bucket
+                        s3.delete_object(Bucket=source_bucket, Key=obj_key)
 
                 # Check if there are more results to fetch
                 if response.get('NextContinuationToken'):
