@@ -9,4 +9,6 @@ function:
       - "src/shared/**"
       - "src/delete_s3_data.py"
   runtime: python3.9
+  events:
+    - schedule: cron(0 0 ? * SAT *)
 

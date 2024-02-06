@@ -279,7 +279,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/omni-live-logistics-ready-for-billing/dev/1707125569508-2024-02-05T09:32:49.508Z/readytobillupdate.zip"
+                "S3Key": "serverless/omni-live-logistics-ready-for-billing/dev/1707238495796-2024-02-06T16:54:55.796Z/readytobillupdate.zip"
               },
               "Handler": "src/readytobill_update.lambda_handler",
               "Runtime": "python3.9",
@@ -291,7 +291,8 @@
                 "Variables": {
                   "Dynamo_Table": {
                     "Ref": "ReadyforBilling"
-                  }
+                  },
+                  "url": "https://tms-lvlp.loadtracking.com:6790/ws/api/orders/update"
                 }
               },
               "Role": {
@@ -301,7 +302,8 @@
                 ]
               },
               "Layers": [
-                "arn:aws:lambda:us-east-1:332281781429:layer:requests:1"
+                "arn:aws:lambda:us-east-1:332281781429:layer:requests:1",
+                "arn:aws:lambda:us-east-1:332281781429:layer:urllib:1"
               ]
             },
             "DependsOn": [
@@ -315,7 +317,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/omni-live-logistics-ready-for-billing/dev/1707125569508-2024-02-05T09:32:49.508Z/copys3data.zip"
+                "S3Key": "serverless/omni-live-logistics-ready-for-billing/dev/1707238495796-2024-02-06T16:54:55.796Z/copys3data.zip"
               },
               "Handler": "src/copy_data_s3.lambda_handler",
               "Runtime": "python3.9",
@@ -344,7 +346,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/omni-live-logistics-ready-for-billing/dev/1707125569508-2024-02-05T09:32:49.508Z/deletes3data.zip"
+                "S3Key": "serverless/omni-live-logistics-ready-for-billing/dev/1707238495796-2024-02-06T16:54:55.796Z/deletes3data.zip"
               },
               "Handler": "src/delete_s3_data.lambda_handler",
               "Runtime": "python3.9",
@@ -370,7 +372,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/omni-live-logistics-ready-for-billing/dev/1707125569508-2024-02-05T09:32:49.508Z/queryAthena.zip"
+                "S3Key": "serverless/omni-live-logistics-ready-for-billing/dev/1707238495796-2024-02-06T16:54:55.796Z/queryAthena.zip"
               },
               "Handler": "src/query-Athena.lambda_handler",
               "Runtime": "python3.9",
@@ -399,47 +401,47 @@
               "QueryAthenaLogGroup"
             ]
           },
-          "ReadytobillupdateLambdaVersiony1B4zPaLdAWtEygauQ05EEQQMA8c5tkNSBaEtI5t4E": {
+          "ReadytobillupdateLambdaVersion5A4k76s93loUPWLdWNdyiyDXUAAPvt4kj3gbIhIQ4c": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ReadytobillupdateLambdaFunction"
               },
-              "CodeSha256": "RdrFnziU92XQnMQ/LSw7tzNNRYczO+OcnB7FlXETD8Y=",
+              "CodeSha256": "HswLqfST0NTKoEHHtzJ6DGj5kE36tHaNhFwYCx0bP3M=",
               "Description": "omni live logistics readytobill_update"
             }
           },
-          "Copys3dataLambdaVersionD0uMpsy5jqgFHfTmYG2MLDJsGCCARIyi0SZMmlcsc": {
+          "Copys3dataLambdaVersionB0JFnUUyoZ4iq8sRj7uDV0BdqHdAYWt6MiK34tTQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "Copys3dataLambdaFunction"
               },
-              "CodeSha256": "7Z8DGCWvVJE0p2+cIuZWEnLiWl4MEAO5bMG7xHFftiI=",
+              "CodeSha256": "5nCW42dRIoKnOX+xRtEe+x2rTyIFjnTZJCYbbKjaE8Q=",
               "Description": "omni live logistics copy s3 data"
             }
           },
-          "Deletes3dataLambdaVersionpXtWV9VQajcZloamJO14EikAPmYhrTBlmpxjMlckvo": {
+          "Deletes3dataLambdaVersionIkkZOE7cbPAJjQdQ0mjvYfsaE1K3BoAWhfHase3310w": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "Deletes3dataLambdaFunction"
               },
-              "CodeSha256": "eCWL5vzFN6KKFHydd0P4XVo+BZ8bVeeZK6y/i4lbt4k=",
+              "CodeSha256": "Z6vp9IKxUZozhhaU0HnocbyhER3hgZ5/1Al1PG0gvME=",
               "Description": "omni live logistics delete s3 data"
             }
           },
-          "QueryAthenaLambdaVersionNepyJh8EE8FGYHvxJR9NvmUEnyBeBMeJdYeOKgC5YzQ": {
+          "QueryAthenaLambdaVersionQyIMzIg5kiR173UQk3hAhy3lDIuGNmsAtc1or6G5wk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "QueryAthenaLambdaFunction"
               },
-              "CodeSha256": "6dh6DPnl2Z1PqdwkhhbvRFdb8uxXn+GKBg1nrZqPbTw=",
+              "CodeSha256": "HgZUUO1tK8ZXFkvB5w5x8Ns/ULTlPHDy2uVz9WJs0Ik=",
               "Description": "omni live logistics copy s3 data"
             }
           },
@@ -448,7 +450,7 @@
             "Properties": {
               "DefinitionString": {
                 "Fn::Sub": [
-                  "{\n  \"Comment\": \"State machine for ready-to-bill\",\n  \"StartAt\": \"fetchLatestRecordsToS3\",\n  \"States\": {\n    \"fetchLatestRecordsToS3\": {\n      \"Type\": \"Task\",\n      \"Resource\": \"${19f90a149611edd6fe0a79867884af46}\",\n      \"Parameters\": {\n        \"Payload.$\": \"$\"\n      },\n      \"Retry\": [\n        {\n          \"ErrorEquals\": [\n            \"Lambda.ServiceException\",\n            \"Lambda.AWSLambdaException\",\n            \"Lambda.SdkClientException\",\n            \"Lambda.TooManyRequestsException\"\n          ],\n          \"IntervalSeconds\": 1,\n          \"MaxAttempts\": 3,\n          \"BackoffRate\": 2\n        }\n      ],\n      \"Next\": \"queryAthena\"\n    },\n    \"queryAthena\": {\n      \"Type\": \"Task\",\n      \"Resource\": \"${b64f41421c47f3bd9680d2aee8e1bfa3}\",\n      \"Parameters\": {\n        \"Payload.$\": \"$\"\n      },\n      \"Retry\": [\n        {\n          \"ErrorEquals\": [\n            \"Lambda.ServiceException\",\n            \"Lambda.AWSLambdaException\",\n            \"Lambda.SdkClientException\",\n            \"Lambda.TooManyRequestsException\"\n          ],\n          \"IntervalSeconds\": 1,\n          \"MaxAttempts\": 3,\n          \"BackoffRate\": 2\n        }\n      ],\n      \"ResultPath\": \"$.queryAthena\",\n      \"Next\": \"csvRecordsMap\"\n    },\n    \"csvRecordsMap\": {\n      \"Type\": \"Map\",\n      \"ToleratedFailurePercentage\": 100,\n      \"ItemProcessor\": {\n        \"ProcessorConfig\": {\n          \"Mode\": \"DISTRIBUTED\",\n          \"ExecutionType\": \"EXPRESS\"\n        },\n        \"StartAt\": \"processCsvRecord\",\n        \"States\": {\n          \"processCsvRecord\": {\n            \"Type\": \"Task\",\n            \"Resource\": \"${d89275d37f25721c8596dc481b94cc24}\",\n            \"Parameters\": {\n              \"Payload.$\": \"$.Items\"\n            },\n            \"Retry\": [\n              {\n                \"ErrorEquals\": [\n                  \"Lambda.ServiceException\",\n                  \"Lambda.AWSLambdaException\",\n                  \"Lambda.SdkClientException\",\n                  \"Lambda.TooManyRequestsException\"\n                ],\n                \"IntervalSeconds\": 1,\n                \"MaxAttempts\": 3,\n                \"BackoffRate\": 2\n              }\n            ],\n            \"End\": true,\n            \"ResultPath\": \"$.processCsvRecordResult\"\n          }\n        }\n      },\n      \"ItemSelector\": {\n        \"item.$\": \"$$.Map.Item.Value\",\n        \"mapInput.$\": \"$\"\n      },\n      \"ItemReader\": {\n        \"Resource\": \"arn:aws:states:::s3:getObject\",\n        \"ReaderConfig\": {\n          \"InputType\": \"CSV\",\n          \"CSVHeaderLocation\": \"FIRST_ROW\"\n        },\n        \"Parameters\": {\n          \"Bucket.$\": \"$.queryAthena.Bucket\",\n          \"Key.$\": \"$.queryAthena.Key\"\n        }\n      },\n      \"ItemBatcher\": {\n        \"MaxItemsPerBatch\": 10\n      },\n      \"MaxConcurrency\": 2,\n      \"Label\": \"FileAnalysis\",\n      \"Next\": \"deletefiles\",\n      \"ResultPath\": null\n    },\n    \"deletefiles\": {\n      \"Type\": \"Task\",\n      \"Resource\": \"${771eadc0f08fa3c2bff73c42d367c05a}\",\n      \"Parameters\": {\n        \"Payload.$\": \"$\"\n      },\n      \"Retry\": [\n        {\n          \"ErrorEquals\": [\n            \"Lambda.ServiceException\",\n            \"Lambda.AWSLambdaException\",\n            \"Lambda.SdkClientException\",\n            \"Lambda.TooManyRequestsException\"\n          ],\n          \"IntervalSeconds\": 1,\n          \"MaxAttempts\": 3,\n          \"BackoffRate\": 2\n        }\n      ],\n      \"End\": true\n    }\n  }\n}",
+                  "{\n  \"Comment\": \"State machine for ready-to-bill\",\n  \"StartAt\": \"fetchLatestRecordsToS3\",\n  \"States\": {\n    \"fetchLatestRecordsToS3\": {\n      \"Type\": \"Task\",\n      \"Resource\": \"${19f90a149611edd6fe0a79867884af46}\",\n      \"Parameters\": {\n        \"Payload.$\": \"$\"\n      },\n      \"Retry\": [\n        {\n          \"ErrorEquals\": [\n            \"Lambda.ServiceException\",\n            \"Lambda.AWSLambdaException\",\n            \"Lambda.SdkClientException\",\n            \"Lambda.TooManyRequestsException\"\n          ],\n          \"IntervalSeconds\": 1,\n          \"MaxAttempts\": 3,\n          \"BackoffRate\": 2\n        }\n      ],\n      \"Next\": \"queryAthena\"\n    },\n    \"queryAthena\": {\n      \"Type\": \"Task\",\n      \"Resource\": \"${b64f41421c47f3bd9680d2aee8e1bfa3}\",\n      \"Parameters\": {\n        \"Payload.$\": \"$\"\n      },\n      \"Retry\": [\n        {\n          \"ErrorEquals\": [\n            \"Lambda.ServiceException\",\n            \"Lambda.AWSLambdaException\",\n            \"Lambda.SdkClientException\",\n            \"Lambda.TooManyRequestsException\"\n          ],\n          \"IntervalSeconds\": 1,\n          \"MaxAttempts\": 3,\n          \"BackoffRate\": 2\n        }\n      ],\n      \"ResultPath\": \"$.queryAthena\",\n      \"Next\": \"csvRecordsMap\"\n    },\n    \"csvRecordsMap\": {\n      \"Type\": \"Map\",\n      \"ToleratedFailurePercentage\": 100,\n      \"ItemProcessor\": {\n        \"ProcessorConfig\": {\n          \"Mode\": \"DISTRIBUTED\",\n          \"ExecutionType\": \"EXPRESS\"\n        },\n        \"StartAt\": \"CheckIfRecordsExist\",\n        \"States\": {\n          \"CheckIfRecordsExist\": {\n            \"Type\": \"Choice\",\n            \"Choices\": [\n              {\n                \"Variable\": \"$.Items\",\n                \"IsPresent\": true,\n                \"Next\": \"processCsvRecord\"\n              },\n              {\n                \"Variable\": \"$.item\",\n                \"IsPresent\": true,\n                \"Next\": \"processCsvRecord\"\n              },\n              {\n                \"Variable\": \"$.item\",\n                \"IsPresent\": false,\n                \"Next\": \"NoRecordsFound\"\n              }\n            ],\n            \"Default\": \"NoRecordsFound\"\n          },\n          \"NoRecordsFound\": {\n            \"Type\": \"Pass\",\n            \"Result\": \"No records found in CSV\",\n            \"End\": true\n          },\n          \"processCsvRecord\": {\n            \"Type\": \"Task\",\n            \"Resource\": \"${d89275d37f25721c8596dc481b94cc24}\",\n            \"Parameters\": {\n              \"Payload.$\": \"$.Items\"\n            },\n            \"Retry\": [\n              {\n                \"ErrorEquals\": [\n                  \"Lambda.ServiceException\",\n                  \"Lambda.AWSLambdaException\",\n                  \"Lambda.SdkClientException\",\n                  \"Lambda.TooManyRequestsException\"\n                ],\n                \"IntervalSeconds\": 1,\n                \"MaxAttempts\": 3,\n                \"BackoffRate\": 2\n              }\n            ],\n            \"End\": true,\n            \"ResultPath\": \"$.processCsvRecordResult\"\n          }\n        }\n      },\n      \"ItemSelector\": {\n        \"item.$\": \"$$.Map.Item.Value\",\n        \"mapInput.$\": \"$\"\n      },\n      \"ItemReader\": {\n        \"Resource\": \"arn:aws:states:::s3:getObject\",\n        \"ReaderConfig\": {\n          \"InputType\": \"CSV\",\n          \"CSVHeaderLocation\": \"FIRST_ROW\"\n        },\n        \"Parameters\": {\n          \"Bucket.$\": \"$.queryAthena.Bucket\",\n          \"Key.$\": \"$.queryAthena.Key\"\n        }\n      },\n      \"ItemBatcher\": {\n        \"MaxItemsPerBatch\": 10\n      },\n      \"MaxConcurrency\": 2,\n      \"Label\": \"FileAnalysis\",\n      \"End\": true,\n      \"Catch\": [\n        {\n          \"ErrorEquals\": [\n            \"States.ItemReaderFailed\"\n          ],\n          \"Next\": \"HandleItemReaderFailed\"\n        }\n      ],\n      \"ResultPath\": null\n    },\n    \"HandleItemReaderFailed\": {\n      \"Type\": \"Pass\",\n      \"Result\": \"No data records found in CSV\",\n      \"End\": true\n    }\n  }\n}",
                   {
                     "19f90a149611edd6fe0a79867884af46": {
                       "Fn::GetAtt": [
@@ -467,12 +469,6 @@
                         "ReadytobillupdateLambdaFunction",
                         "Arn"
                       ]
-                    },
-                    "771eadc0f08fa3c2bff73c42d367c05a": {
-                      "Fn::GetAtt": [
-                        "Deletes3dataLambdaFunction",
-                        "Arn"
-                      ]
                     }
                   }
                 ]
@@ -486,6 +482,100 @@
               "StateMachineName": "omni-live-logistics-state-machine-dev"
             },
             "DependsOn": []
+          },
+          "Deletes3dataEventsRuleSchedule1": {
+            "Type": "AWS::Events::Rule",
+            "Properties": {
+              "ScheduleExpression": "cron(0 0 ? * SAT *)",
+              "State": "ENABLED",
+              "Targets": [
+                {
+                  "Arn": {
+                    "Fn::GetAtt": [
+                      "Deletes3dataLambdaFunction",
+                      "Arn"
+                    ]
+                  },
+                  "Id": "deletes3dataSchedule"
+                }
+              ]
+            }
+          },
+          "Deletes3dataLambdaPermissionEventsRuleSchedule1": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "Deletes3dataLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "events.amazonaws.com",
+              "SourceArn": {
+                "Fn::GetAtt": [
+                  "Deletes3dataEventsRuleSchedule1",
+                  "Arn"
+                ]
+              }
+            }
+          },
+          "ReadyDashtoDashbillStepFunctionsEventsRuleSchedule1": {
+            "Type": "AWS::Events::Rule",
+            "Properties": {
+              "ScheduleExpression": "cron(0 */2 * * ? *)",
+              "State": "DISABLED",
+              "Targets": [
+                {
+                  "Arn": {
+                    "Ref": "OmniDashliveDashlogisticsDashstateDashmachineDashdev"
+                  },
+                  "Id": "ready-to-billStepFunctionsSchedule",
+                  "RoleArn": {
+                    "Fn::GetAtt": [
+                      "ReadyDashtoDashbillScheduleToStepFunctionsRole",
+                      "Arn"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "ReadyDashtoDashbillScheduleToStepFunctionsRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": "events.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": "dev-us-east-1-omni-live-logistics-ready-for-billing-ready-to-bill-schedule",
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "states:StartExecution"
+                        ],
+                        "Resource": {
+                          "Ref": "OmniDashliveDashlogisticsDashstateDashmachineDashdev"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
           },
           "MySSMParameter": {
             "Type": "AWS::SSM::Parameter",
@@ -611,7 +701,7 @@
           "ReadytobillupdateLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ReadytobillupdateLambdaVersiony1B4zPaLdAWtEygauQ05EEQQMA8c5tkNSBaEtI5t4E"
+              "Ref": "ReadytobillupdateLambdaVersion5A4k76s93loUPWLdWNdyiyDXUAAPvt4kj3gbIhIQ4c"
             },
             "Export": {
               "Name": "sls-omni-live-logistics-ready-for-billing-dev-ReadytobillupdateLambdaFunctionQualifiedArn"
@@ -620,7 +710,7 @@
           "Copys3dataLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "Copys3dataLambdaVersionD0uMpsy5jqgFHfTmYG2MLDJsGCCARIyi0SZMmlcsc"
+              "Ref": "Copys3dataLambdaVersionB0JFnUUyoZ4iq8sRj7uDV0BdqHdAYWt6MiK34tTQ"
             },
             "Export": {
               "Name": "sls-omni-live-logistics-ready-for-billing-dev-Copys3dataLambdaFunctionQualifiedArn"
@@ -629,7 +719,7 @@
           "Deletes3dataLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "Deletes3dataLambdaVersionpXtWV9VQajcZloamJO14EikAPmYhrTBlmpxjMlckvo"
+              "Ref": "Deletes3dataLambdaVersionIkkZOE7cbPAJjQdQ0mjvYfsaE1K3BoAWhfHase3310w"
             },
             "Export": {
               "Name": "sls-omni-live-logistics-ready-for-billing-dev-Deletes3dataLambdaFunctionQualifiedArn"
@@ -638,7 +728,7 @@
           "QueryAthenaLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "QueryAthenaLambdaVersionNepyJh8EE8FGYHvxJR9NvmUEnyBeBMeJdYeOKgC5YzQ"
+              "Ref": "QueryAthenaLambdaVersionQyIMzIg5kiR173UQk3hAhy3lDIuGNmsAtc1or6G5wk"
             },
             "Export": {
               "Name": "sls-omni-live-logistics-ready-for-billing-dev-QueryAthenaLambdaFunctionQualifiedArn"
@@ -739,11 +829,6 @@
       },
       "vpc": {}
     },
-    "custom": {
-      "pythonRequirements": {
-        "dockerizePip": true
-      }
-    },
     "plugins": [
       "serverless-python-requirements",
       "serverless-step-functions"
@@ -771,13 +856,14 @@
         "environment": {
           "Dynamo_Table": {
             "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ReadytobillupdateLambdaFunction\"][\"Properties\"][\"Environment\"][\"Variables\"][\"Dynamo_Table\"]"
-          }
+          },
+          "url": "https://tms-lvlp.loadtracking.com:6790/ws/api/orders/update"
         },
         "events": [],
         "module": ".",
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "ReadytobillupdateLambdaVersiony1B4zPaLdAWtEygauQ05EEQQMA8c5tkNSBaEtI5t4E"
+        "versionLogicalId": "ReadytobillupdateLambdaVersion5A4k76s93loUPWLdWNdyiyDXUAAPvt4kj3gbIhIQ4c"
       },
       "copys3data": {
         "name": "omni-live-logistics-copy-s3-data-dev",
@@ -800,7 +886,7 @@
         "module": ".",
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "Copys3dataLambdaVersionD0uMpsy5jqgFHfTmYG2MLDJsGCCARIyi0SZMmlcsc"
+        "versionLogicalId": "Copys3dataLambdaVersionB0JFnUUyoZ4iq8sRj7uDV0BdqHdAYWt6MiK34tTQ"
       },
       "deletes3data": {
         "name": "omni-live-logistics-delete-s3-data-dev",
@@ -816,11 +902,15 @@
           "artifact": "/Users/raviteja/raviteja/omni-live-ready-to-bill/.serverless/deletes3data.zip"
         },
         "runtime": "python3.9",
-        "events": [],
+        "events": [
+          {
+            "schedule": "cron(0 0 ? * SAT *)"
+          }
+        ],
         "module": ".",
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "Deletes3dataLambdaVersionpXtWV9VQajcZloamJO14EikAPmYhrTBlmpxjMlckvo"
+        "versionLogicalId": "Deletes3dataLambdaVersionIkkZOE7cbPAJjQdQ0mjvYfsaE1K3BoAWhfHase3310w"
       },
       "queryAthena": {
         "name": "omni-live-logistics-query-athena-dev",
@@ -849,7 +939,7 @@
         "module": ".",
         "memory": 1024,
         "vpc": {},
-        "versionLogicalId": "QueryAthenaLambdaVersionNepyJh8EE8FGYHvxJR9NvmUEnyBeBMeJdYeOKgC5YzQ"
+        "versionLogicalId": "QueryAthenaLambdaVersionQyIMzIg5kiR173UQk3hAhy3lDIuGNmsAtc1or6G5wk"
       }
     },
     "resources": {
@@ -981,7 +1071,7 @@
       "package": {
         "individually": true,
         "artifactsS3KeyDirname": "serverless/omni-live-logistics-ready-for-billing/dev/code-artifacts",
-        "artifactDirectoryName": "serverless/omni-live-logistics-ready-for-billing/dev/1707125569508-2024-02-05T09:32:49.508Z"
+        "artifactDirectoryName": "serverless/omni-live-logistics-ready-for-billing/dev/1707238495796-2024-02-06T16:54:55.796Z"
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
@@ -1051,8 +1141,34 @@
                       "Mode": "DISTRIBUTED",
                       "ExecutionType": "EXPRESS"
                     },
-                    "StartAt": "processCsvRecord",
+                    "StartAt": "CheckIfRecordsExist",
                     "States": {
+                      "CheckIfRecordsExist": {
+                        "Type": "Choice",
+                        "Choices": [
+                          {
+                            "Variable": "$.Items",
+                            "IsPresent": true,
+                            "Next": "processCsvRecord"
+                          },
+                          {
+                            "Variable": "$.item",
+                            "IsPresent": true,
+                            "Next": "processCsvRecord"
+                          },
+                          {
+                            "Variable": "$.item",
+                            "IsPresent": false,
+                            "Next": "NoRecordsFound"
+                          }
+                        ],
+                        "Default": "NoRecordsFound"
+                      },
+                      "NoRecordsFound": {
+                        "Type": "Pass",
+                        "Result": "No records found in CSV",
+                        "End": true
+                      },
                       "processCsvRecord": {
                         "Type": "Task",
                         "Resource": "${d89275d37f25721c8596dc481b94cc24}",
@@ -1097,40 +1213,37 @@
                   },
                   "MaxConcurrency": 2,
                   "Label": "FileAnalysis",
-                  "Next": "deletefiles",
-                  "ResultPath": null
-                },
-                "deletefiles": {
-                  "Type": "Task",
-                  "Resource": "${771eadc0f08fa3c2bff73c42d367c05a}",
-                  "Parameters": {
-                    "Payload.$": "$"
-                  },
-                  "Retry": [
+                  "End": true,
+                  "Catch": [
                     {
                       "ErrorEquals": [
-                        "Lambda.ServiceException",
-                        "Lambda.AWSLambdaException",
-                        "Lambda.SdkClientException",
-                        "Lambda.TooManyRequestsException"
+                        "States.ItemReaderFailed"
                       ],
-                      "IntervalSeconds": 1,
-                      "MaxAttempts": 3,
-                      "BackoffRate": 2
+                      "Next": "HandleItemReaderFailed"
                     }
                   ],
+                  "ResultPath": null
+                },
+                "HandleItemReaderFailed": {
+                  "Type": "Pass",
+                  "Result": "No data records found in CSV",
                   "End": true
                 }
               }
-            }
+            },
+            "events": [
+              {
+                "schedule": {
+                  "rate": "cron(0 */2 * * ? *)",
+                  "enabled": false
+                }
+              }
+            ]
           }
         }
       },
       "resources": {
         "$ref": "$[\"service\"][\"resources\"]"
-      },
-      "custom": {
-        "$ref": "$[\"service\"][\"custom\"]"
       }
     },
     "layers": {},
@@ -1144,7 +1257,7 @@
   },
   "package": {
     "individually": true,
-    "artifactDirectoryName": "serverless/omni-live-logistics-ready-for-billing/dev/1707125569508-2024-02-05T09:32:49.508Z",
+    "artifactDirectoryName": "serverless/omni-live-logistics-ready-for-billing/dev/1707238495796-2024-02-06T16:54:55.796Z",
     "artifact": ""
   }
 }
