@@ -32,13 +32,13 @@ group by
     id )
 
 select o.id as order_id,
-    s1.actual_departure,
+    s2.actual_departure,
     s1.id as shipper_stop_id,
     s2.id as consignee_stop_id,
     o.status,
     mo.num_of_moves,
     m.brokerage_status,
-    date_diff('hour', s1.actual_departure, CURRENT_DATE) as date_diff_hrs,
+    date_diff('hour', s2.actual_departure, CURRENT_DATE) as date_diff_hrs,
     o.ready_to_bill
 from orders o 
 join w1 on o.id = w1.id and o.transact_id = w1.transact_id
@@ -55,4 +55,4 @@ where o.status = 'D'
     and o.ready_to_bill = 'N'
     and mo.num_of_moves = 1
     and m.brokerage_status = 'DELIVERD'
-    and date_diff('hour', s1.actual_departure, CURRENT_DATE) >= 96;
+    and date_diff('hour', s2.actual_departure, CURRENT_DATE) >= 48
