@@ -52,6 +52,7 @@ join (select * from movement_order mo join w3 on mo.id = w3.id and mo.transact_i
 join (select m.* from movement m join w4 on m.id = w4.id and m.transact_id = w4.transact_id) m on m.id = mo2.movement_id
 where o.status = 'D'
     and o.order_mode='T'
+    and o.total_charge > 0
     and o.ready_to_bill = 'N'
     and mo.num_of_moves = 1
     and m.brokerage_status = 'DELIVERD'
