@@ -67,7 +67,18 @@ resources:
         Name: '/readytobill/bucket/key/parameter/${self:provider.stage}'
         Type: "String"
         Value: "default_value"
-
+    Username:
+      Type: "AWS::SSM::Parameter"
+      Properties:
+        Name: '/readytobill/lvlp/username/${self:provider.stage}'
+        Type: "String"
+        Value: "apiuser"
+    Password:
+      Type: "AWS::SSM::Parameter"
+      Properties:
+        Name: '/readytobill/lvlp/password/${self:provider.stage}'
+        Type: "String"
+        Value: "lvlpapiuser"
     ReadyforBilling: ${file(config/dynamo/ready-for-billing-table.yml):ready-for-billing}
 
     stateMachineRole:
