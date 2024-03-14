@@ -34,8 +34,8 @@ def lambda_handler(event, context):
     }
 
 def get_order(order_id):
-    username = "apiuser"
-    password = "lvlpapiuser"
+    username = os.environ['Username']
+    password = os.environ['Password']
     mcleod_headers = {'Accept': 'application/json',
                       'Content-type': 'application/json'}
     #url = f'https://tms-lvlp.loadtracking.com:6790/ws/orders/{order_id}'
@@ -48,8 +48,8 @@ def get_order(order_id):
         print("order_id",response.status_code)
 
 def update_order(json_data):
-    username = "apiuser"
-    password = "lvlpapiuser"
+    username = os.environ['Username']
+    password = os.environ['Password']
     mcleod_headers = {'Accept': 'application/json',
                       'Content-type': 'application/json'}
     
