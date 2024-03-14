@@ -10,7 +10,7 @@ provider:
   region: ${opt:region, 'us-east-1'}
   stage: ${opt:stage, 'dev'}
   deploymentBucket:
-    name: ${ssm:sls-deployment-bucket-${self:provider.stage}}
+    name: ${ssm:/omni-dw/${self:provider.stage}/sls/deployment/bucket}
     serverSideEncryption: AES256
   iamRoleStatements:
     - Effect: "Allow"
