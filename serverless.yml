@@ -9,6 +9,9 @@ provider:
   runtime: python3.9
   region: ${opt:region, 'us-east-1'}
   stage: ${opt:stage, 'dev'}
+  deploymentBucket:
+    name: ${ssm:sls-deployment-bucket-${self:provider.stage}}
+    serverSideEncryption: AES256
   iamRoleStatements:
     - Effect: "Allow"
       Action:

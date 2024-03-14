@@ -56,4 +56,4 @@ where o.status = 'D'
     and o.ready_to_bill = 'N'
     and mo.num_of_moves = 1
     and m.brokerage_status = 'DELIVERD'
-    and date_diff('hour', s2.actual_departure, CURRENT_DATE) >= 48
+    and date_diff('hour', s2.actual_departure, CURRENT_DATE) >= 48 ;
