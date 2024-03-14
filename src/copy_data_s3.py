@@ -12,7 +12,7 @@ def lambda_handler(event, context):
     # List of folder names you want to process
     folders_to_process = ['movement','movement_order','orders','stop']
     # Calculate the time 5 hours ago
-    five_hours_ago = datetime.now(timezone.utc) - timedelta(hours=3)
+    five_hours_ago = datetime.now(timezone.utc) - timedelta(hours=5)
 
     # Iterate through the folders
     for folder_name in folders_to_process:
