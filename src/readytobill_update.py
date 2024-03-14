@@ -56,6 +56,6 @@ def update_order(json_data):
     print("json",json_data)
     url = os.environ['url']
     response = requests.put(url, auth=(username, password), headers=mcleod_headers,json=json_data)
-    print("response",response.text)
+    print("response :",response.text)
     output = response.json()
     return response.status_code
