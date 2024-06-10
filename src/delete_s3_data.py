@@ -1,3 +1,10 @@
+"""
+* File: src\delete_s3_data.py
+* Project: Omni-live-ready-to-bill
+* Author: Bizcloud Experts
+* Date: 2024-02-06
+* Confidential and Proprietary
+"""
 import boto3
 from datetime import datetime, timedelta, timezone
 
