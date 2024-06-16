@@ -3,6 +3,8 @@ function:
   handler: src/readytobill_update.lambda_handler
   description: omni live logistics readytobill_update
   timeout: 900
+  tags:
+    Name: ready-for-billing   
   package:
     patterns:
       - "!**/*"

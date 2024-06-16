@@ -1,6 +1,8 @@
 stateMachine:
   name: omni-live-logistics-state-machine-${self:provider.stage}
   role: !GetAtt stateMachineRole.Arn
+  tags:
+    Name: ready-to-bill  
   definition:
     Comment: "State machine for ready-to-bill"
     StartAt: fetchLatestRecordsToS3
