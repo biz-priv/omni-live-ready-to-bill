@@ -3,6 +3,8 @@ function:
   handler: src/copy_data_s3.lambda_handler
   description: omni live logistics copy s3 data
   timeout: 900
+  tags:
+    Name: copy-s3-data 
   package:
     patterns:
       - "!**/*"
