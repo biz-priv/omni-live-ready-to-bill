@@ -1,3 +1,10 @@
+# """
+# * File: src\copy_data_s3.py
+# * Project: Omni-live-ready-to-bill
+# * Author: Bizcloud Experts
+# * Date: 2024-03-15
+# * Confidential and Proprietary
+# """
 import boto3
 from datetime import datetime, timedelta,timezone
 

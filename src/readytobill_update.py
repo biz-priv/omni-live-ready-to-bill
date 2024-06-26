@@ -1,3 +1,10 @@
+# """
+# * File: src\readytobill_update.py
+# * Project: Omni-live-ready-to-bill
+# * Author: Bizcloud Experts
+# * Date: 2024-03-15
+# * Confidential and Proprietary
+# """
 import json
 import csv 
 import boto3

@@ -3,6 +3,8 @@ function:
   handler: src/delete_s3_data.lambda_handler
   description: omni live logistics delete s3 data
   timeout: 900
+  tags:
+    Name: delete-s3-data 
   package:
     patterns:
       - "!**/*"
